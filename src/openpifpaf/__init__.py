@@ -39,3 +39,5 @@ from .show.annotation_painter import PAINTERS
 
 # load plugins last
 plugin.register()
+
+print("init")

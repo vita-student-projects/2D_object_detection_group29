@@ -12,8 +12,7 @@ import importlib
 import pkgutil
 
 REGISTERED = {}
-
-
+    
 def register():
     from . import plugins  # pylint: disable=import-outside-toplevel,cyclic-import
 
@@ -26,6 +25,7 @@ def register():
         if name.startswith('openpifpaf_')
     ]
 
+    
     for name in plugin_names:
         if name not in sys.modules:
             module = importlib.import_module(name)
@@ -44,3 +44,4 @@ def versions():
     return {name: getattr(m, '__version__', 'unknown')
             for name, m in REGISTERED.items()
             if not name.startswith('openpifpaf.plugins.')}
+

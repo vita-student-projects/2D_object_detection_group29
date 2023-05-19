@@ -144,6 +144,8 @@ def cli():
 
 def main():
     args = cli()
+    
+    print("MAIN LANCE")
 
     datamodule = datasets.factory(args.dataset)
 
