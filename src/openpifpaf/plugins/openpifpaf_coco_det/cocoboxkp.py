@@ -25,36 +25,23 @@ except ImportError:
 
 class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
     
-    base_path = '/Users/antoine/Desktop/EPFL/Master/Ma4/DLAV/Projet_git_ale/openpifpaf/src/openpifpaf/plugins/openpifpaf_coco_det/'
+    # base_path = '/Users/antoine/Desktop/EPFL/Master/Ma4/DLAV/Projet_git_ale/openpifpaf/src/openpifpaf/plugins/openpifpaf_coco_det/'
+    base_path = '/Users/alessandrachappuis/'
     
-    '''
-    _test2017_annotations = base_path + 'data-mscoco/raw/image_info_test2017.json'
-    _testdev2017_annotations = base_path + 'data-mscoco/raw/image_info_test-dev2017.json'
-    _test2017_image_dir = base_path + 'data-mscoco/test/data/'
-    '''
-    
-    _test2017_annotations = base_path + 'data-mscoco/test/labels.json'
-    _testdev2017_annotations = base_path + 'data-mscoco/raw/image_info_test-dev2017.json'
-    _test2017_image_dir = base_path + 'data-mscoco/test/data/'
-    
-    
+    _test2017_annotations = base_path + 'data-mscoco/annotations/image_info_test2017.json'
+    _testdev2017_annotations = base_path + 'data-mscoco/annotations/image_info_test-dev2017.json'
+    _test2017_image_dir = base_path + 'data-mscoco/images/test2017/'
+
     # cli configurable
-    
-    train_annotations = base_path + 'data-mscoco/train/labels.json'
-    val_annotations = base_path + 'data-mscoco/validation/labels.json'
+    # train_annotations = base_path + 'data-mscoco/annotations/person_keypoints_train2017.json'
+    train_annotations = base_path + 'data-mscoco/annotations/person_keypoints_small_train2017.json'
+    val_annotations = base_path + 'data-mscoco/annotations/person_keypoints_val2017.json'
     eval_annotations = val_annotations
-    train_image_dir = base_path + 'data-mscoco/train/data/'
-    val_image_dir = base_path + 'data-mscoco/valisation/data/'
+    # train_image_dir = base_path + 'data-mscoco/images/train2017/'
+    train_image_dir = base_path + 'data-mscoco/data/'
+    val_image_dir = base_path + 'data-mscoco/images/val2017/'
     eval_image_dir = val_image_dir
-    
-    '''
-    train_annotations = base_path + 'data-mscoco/raw/person_keypoints_train2017.json'
-    val_annotations = base_path + 'data-mscoco/raw/person_keypoints_val2017.json'
-    eval_annotations = val_annotations
-    train_image_dir = base_path + 'data-mscoco/train/data/'
-    val_image_dir = base_path + 'data-mscoco/valisation/data/'
-    eval_image_dir = val_image_dir
-    '''
+
     
     square_edge = 385
     with_dense = False

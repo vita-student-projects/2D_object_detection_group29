@@ -32,6 +32,9 @@ def test_train(tmp_path):
     train_cmd = TRAIN_COMMAND + ['--out={}'.format(os.path.join(tmp_path, 'train_test.pkl'))]
     print(' '.join(train_cmd))
     subprocess.run(train_cmd, check=True, capture_output=True)
+
+    print('before run')
+    
     print(os.listdir(tmp_path))
 
     # find the trained model checkpoint
