@@ -101,7 +101,6 @@ class CocoDataset(torch.utils.data.Dataset):
         return weights
 
     def __getitem__(self, index):
-        print('-------PREPROCESS-DATASET-START-------')
         image_id = self.ids[index]
         ann_ids = self.coco.getAnnIds(imgIds=image_id, catIds=self.category_ids)
         anns = self.coco.loadAnns(ann_ids)
@@ -132,7 +131,6 @@ class CocoDataset(torch.utils.data.Dataset):
         image, anns, meta = self.preprocess(image, anns, meta)
 
         LOG.debug(meta)
-        print('-------PREPROCESS-DATASET-STOP-------')
 
         # TODO: convert into transform
         # # log stats

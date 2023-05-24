@@ -46,11 +46,9 @@ class CifGenerator():
         self.s_offset = (config.side_length - 1.0) / 2.0
 
     def __call__(self, image, anns, meta):
-        print('-------CALL-CIF-START-------')
         width_height_original = image.shape[2:0:-1]
 
         keypoint_sets = self.rescaler.keypoint_sets(anns)
-        print('cif_box:', '\n', keypoint_sets)
         bg_mask = self.rescaler.bg_mask(anns, width_height_original,
                                         crowd_margin=(self.config.side_length - 1) / 2)
         valid_area = self.rescaler.valid_area(meta)
@@ -63,7 +61,6 @@ class CifGenerator():
 
         self.visualizer.processed_image(image)
         self.visualizer.targets(fields, annotation_dicts=anns)
-        print('-------CALL-CIF-STOP-------')
         return fields
 
     def init_fields(self, n_fields, bg_mask):

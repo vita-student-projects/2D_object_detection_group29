@@ -83,7 +83,6 @@ class AnnRescaler():
 
     def keypoint_sets(self, anns):
         """Ignore annotations of crowds."""
-        print('-------ANNRESCALER-START-------')
 
         keypoint_sets_bbox = [(np.copy(ann['keypoints']), ann['bbox'])
                               for ann in anns if not ann['iscrowd']]
@@ -102,12 +101,6 @@ class AnnRescaler():
         for b in box_sets:
             b0, b1, w, h = b[0], b[1], b[2], b[3]
             box_set.append(np.array([[(b0 + w)/2.0, (b1+h)/2.0, 2.],[b0, b1, 2.], [b0+w, b1, 2.], [b0, b1+h, 2.], [b0+w, b1+h, 2.]]))
-
-        print('annrescaler_box: ', '\n', box_set)
-
-        # print('kps: ', keypoint_sets, len(keypoint_sets), id)
-        
-        # keypoint_sets = [box for _, box in keypoint_sets_bbox]
         
         # Not needed as all the bounding box edges are visible
 
@@ -119,8 +112,6 @@ class AnnRescaler():
 
         for b in box_set:
             b[:, :2] /= self.stride
-        # return keypoint_sets
-        print('-------ANNRESCALER-STOP-------')
         return box_set
 
     def bg_mask(self, anns, width_height, *, crowd_margin):
