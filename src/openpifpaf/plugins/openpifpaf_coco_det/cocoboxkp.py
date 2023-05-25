@@ -53,8 +53,8 @@ class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
     # val_image_dir = base_path + 'data-mscoco/data/val2017/'
     # eval_image_dir = val_image_dir
 
-    train_annotations = base_path + 'data-coco/annotations/person_keypoints_small_train2017.json'
-    val_annotations = base_path + 'data-coco/annotations/person_keypoints_small_val2017.json'
+    train_annotations = base_path + 'data-coco/annotations/person_keypoints_train2017.json'
+    val_annotations = base_path + 'data-coco/annotations/person_keypoints_val2017.json'
     eval_annotations = val_annotations
     
     train_image_dir = base_path + 'data-coco/images/train2017/'
