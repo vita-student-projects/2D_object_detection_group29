@@ -1,5 +1,7 @@
 """Train a pifpaf network."""
 
+print('START')
+
 import argparse
 import copy
 import datetime
