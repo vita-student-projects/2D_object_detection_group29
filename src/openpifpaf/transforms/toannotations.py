@@ -28,7 +28,6 @@ class ToKpAnnotations:
         self.categories = categories
 
     def __call__(self, anns):
-        print('-------TOANN-------')
         return [
             Annotation(
                 self.keypoints_by_category[ann['category_id']],
