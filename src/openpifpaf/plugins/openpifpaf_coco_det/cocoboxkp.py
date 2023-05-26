@@ -38,9 +38,10 @@ class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
 
     # cli configurable
 
-    # train_annotations = base_path + 'data-mscoco/annotations/person_keypoints_train2017.json'
-    # val_annotations = base_path + 'data-mscoco/annotations/person_keypoints_val2017.json'
-    # train_image_dir = base_path + 'data-mscoco/images/train2017/'
+    # train_annotations = base_path + 'data-mscoco/annotations/person_keypoints_train2017.json'
+    # val_annotations = base_path + 'data-mscoco/annotations/person_keypoints_val2017.json'
+    # eval_annotations = val_annotations
+    # train_image_dir = base_path + 'data-mscoco/images/train2017/'
 
     # val_image_dir = base_path + 'data-mscoco/images/val2017/'
     # eval_image_dir = val_image_dir
@@ -52,6 +53,7 @@ class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
     # train_image_dir = base_path + 'data-mscoco/data/train2017/'
     # val_image_dir = base_path + 'data-mscoco/data/val2017/'
     # eval_image_dir = val_image_dir
+
 
     train_annotations = base_path + 'data-coco/annotations/person_keypoints_train2017.json'
     val_annotations = base_path + 'data-coco/annotations/person_keypoints_val2017.json'
@@ -358,5 +360,5 @@ class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
             pycocotools.coco.COCO(self.eval_annotations),
             max_per_image=20,
             category_ids=[1],
-            iou_type='keypoints',
+            iou_type='bbox',
         )]
