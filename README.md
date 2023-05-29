@@ -27,7 +27,9 @@ We can thus improve the following points in the future:
 Furthermore, we trained the model with a *shufflenetv2k16* basenet. To improve the performance of our model, we could try other basenets, add a weight decay or fine tune the learning rate.
 These are more model tuning improvements that can be studied and applied.  
 
-Finally we could implement a validation function made for this application. For now we are using the openpifpaf "person" keypoint validation function, which is not adapted to bounding box prediction.
+Moreover, we could implement a validation function made for this application. For now we are using the openpifpaf "person" keypoint validation function, which is not adapted to bounding box prediction.
+
+Finally, the JSON file that is output by the model during prediction does not comply to the wanted JSON format. The coordinates of the bounding box in the JSON are not the ones shown in the image. Indeed, the bounding box in the image is make of keypoints, which are listed in the "keypoints" part of the JSON file. We should transform those keypoints in bounding box coordinates according to the COCO format explained previously. 
 
 # Conclusion 
 
