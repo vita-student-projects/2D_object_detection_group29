@@ -27,7 +27,7 @@ class CocoBoxKp(openpifpaf.datasets.DataModule, openpifpaf.Configurable):
     
     #base_path = '/Users/antoine/Desktop/EPFL/Master/Ma4/DLAV/Projet_git_ale/openpifpaf/src/openpifpaf/plugins/openpifpaf_coco_det/'
     # base_path = '/Users/alessandrachappuis/'
-    base_path = '/work/scitas-share/datasets/Vita/civil-459/data-coco/'
+    base_path = '/work/scitas-share/datasets/Vita/data-coco'
     
     _test2017_annotations = base_path + 'data-mscoco/annotations/image_info_test2017.json'
     _testdev2017_annotations = base_path + 'data-mscoco/annotations/image_info_test-dev2017.json'
