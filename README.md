@@ -2,7 +2,7 @@
 
 # Introduction
 
-The goal of our project was to do 2D object detection using the OpenPifPaf model provided here. Indeed, OpenPifPaf already has an extension called *NuScenes 2D detection* that detects the 2D bounding boxes of objects from the NuScenes dataset. However, we decided to use the classic cifcaf model in order to detect and predict the boundign boxes around the objects. 
+The goal of our project was to do 2D object detection using the OpenPifPaf model provided here. Indeed, OpenPifPaf already has an extension called *NuScenes 2D detection* that detects the 2D bounding boxes of objects from the NuScenes dataset. However, we decided to use the classic cifcaf model in order to detect and predict the bounding boxes around the objects. 
 Thus, we decided to implement 2D object detection using the *cifcaf* module normally used for keypoints detection. 
 
 # Methodology
