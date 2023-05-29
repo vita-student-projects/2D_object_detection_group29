@@ -64,7 +64,7 @@ We based our work on this guide, please refer to it if the information provided 
 
 ## Examples
 
-![Example image with predicted bbox](https://raw.githubusercontent.com/alechp13/openpifpaf_bbox/blob/main/images_readme/0018.jpg.predictions.jpeg)
+![Example image with predicted bbox](https://github.com/alechp13/openpifpaf_bbox/blob/main/images_readme/0018.jpg.predictions.jpeg)
 
 Created with:
 ```sh
