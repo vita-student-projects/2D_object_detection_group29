@@ -44,7 +44,7 @@ class Coco(Base):
     def __init__(self, coco, *,
                  max_per_image=20,
                  category_ids=None,
-                 iou_type='bbox',
+                 iou_type='keypoints',
                  small_threshold=0.0,
                  keypoint_oks_sigmas=None):
         super().__init__()

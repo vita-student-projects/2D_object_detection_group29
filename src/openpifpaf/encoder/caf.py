@@ -128,6 +128,7 @@ class AssociationFiller:
         return shortest
 
     def fill_keypoints(self, keypoints, fill_values):
+
         for field_i, joint1i, joint2i in self.config.fill_plan:
             joint1 = keypoints[joint1i]
             joint2 = keypoints[joint2i]

@@ -8,6 +8,8 @@ from PIL import Image
 
 import openpifpaf
 
+from .tranform_dataset import Json_Updating
+
 
 LOG = logging.getLogger(__name__)
 STAT_LOG = logging.getLogger(__name__.replace('openpifpaf.', 'openpifpaf.stats.'))
@@ -32,7 +34,13 @@ class CocoDataset(torch.utils.data.Dataset):
 
         from pycocotools.coco import COCO  # pylint: disable=import-outside-toplevel
         self.image_dir = image_dir
-        self.coco = COCO(ann_file)
+
+        # Trnfomr the dataset
+        json_updater = Json_Updating(ann_file)
+        new_ann_file = json_updater.transform_bbox2keypoints()
+
+
+        self.coco = COCO(new_ann_file)
 
         self.category_ids = category_ids
 
@@ -128,6 +136,8 @@ class CocoDataset(torch.utils.data.Dataset):
             meta['flickr_full_page'] = 'http://flickr.com/photo.gne?id={}'.format(flickr_id)
 
         # preprocess image and annotations
+        #print('############################################## DEBUG DATASET ###################################################')
+        #print(anns)
         image, anns, meta = self.preprocess(image, anns, meta)
 
         LOG.debug(meta)

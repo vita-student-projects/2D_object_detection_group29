@@ -329,8 +329,13 @@ class CompositeLoss(torch.nn.Module):
             l_scale = full_weights[scale_mask] * l_scale
 
         batch_size = t.shape[0]
+
+        sum_l_confidence_bg = 0
+        for i in range(len(l_confidence_bg)): sum_l_confidence_bg = sum_l_confidence_bg +  l_confidence_bg[i]
+        
         losses = [
-            (torch.sum(l_confidence_bg) + torch.sum(l_confidence)) / batch_size,
+            (torch.tensor(sum_l_confidence_bg) + torch.sum(l_confidence)) / batch_size,
+            #(torch.sum(l_confidence_bg) + torch.sum(l_confidence)) / batch_size,
             torch.sum(l_reg) / batch_size,
             torch.sum(l_scale) / batch_size,
         ]

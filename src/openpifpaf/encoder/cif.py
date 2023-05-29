@@ -53,7 +53,7 @@ class CifGenerator():
                                         crowd_margin=(self.config.side_length - 1) / 2)
         valid_area = self.rescaler.valid_area(meta)
         LOG.debug('valid area: %s, pif side length = %d', valid_area, self.config.side_length)
-
+        
         n_fields = len(self.config.meta.keypoints)
         self.init_fields(n_fields, bg_mask)
         self.fill(keypoint_sets)
@@ -82,6 +82,7 @@ class CifGenerator():
             self.fill_keypoints(keypoints)
 
     def fill_keypoints(self, keypoints):
+
         scale = self.rescaler.scale(keypoints)
         for f, xyv in enumerate(keypoints):
             if xyv[2] <= self.config.v_threshold:

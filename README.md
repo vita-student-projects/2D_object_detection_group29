@@ -1,74 +1,114 @@
-# OpenPifPaf
+# openpifpaf
 
-# Introduction
+Continuously tested on Linux, MacOS and Windows:
+[![Tests](https://github.com/vita-epfl/openpifpaf/workflows/Tests/badge.svg?branch=main)](https://github.com/vita-epfl/openpifpaf/actions?query=workflow%3ATests)
+[![deploy-guide](https://github.com/vita-epfl/openpifpaf/workflows/deploy-guide/badge.svg)](https://github.com/vita-epfl/openpifpaf/actions?query=workflow%3Adeploy-guide)
+[![Downloads](https://pepy.tech/badge/openpifpaf-vita)](https://pepy.tech/project/openpifpaf-vita)
+<br />
+[__New__ 2021 paper](https://arxiv.org/abs/2103.02440):
 
-The goal of our project was to do 2D object detection using the OpenPifPaf model provided here. Indeed, OpenPifPaf already has an extension called *NuScenes 2D detection* that detects the 2D bounding boxes of objects from the NuScenes dataset. However, we decided to use the classic cifcaf model in order to detect and predict the bounding boxes around the objects. 
-Thus, we decided to implement 2D object detection using the *cifcaf* module normally used for keypoints detection. 
+> __OpenPifPaf: Composite Fields for Semantic Keypoint Detection and Spatio-Temporal Association__<br />
+> _[Sven Kreiss](https://www.svenkreiss.com), [Lorenzo Bertoni](https://scholar.google.com/citations?user=f-4YHeMAAAAJ&hl=en), [Alexandre Alahi](https://scholar.google.com/citations?user=UIhXQ64AAAAJ&hl=en)_, 2021.
+>
+> Many image-based perception tasks can be formulated as detecting, associating
+> and tracking semantic keypoints, e.g., human body pose estimation and tracking.
+> In this work, we present a general framework that jointly detects and forms
+> spatio-temporal keypoint associations in a single stage, making this the first
+> real-time pose detection and tracking algorithm. We present a generic neural
+> network architecture that uses Composite Fields to detect and construct a
+> spatio-temporal pose which is a single, connected graph whose nodes are the
+> semantic keypoints (e.g., a person's body joints) in multiple frames. For the
+> temporal associations, we introduce the Temporal Composite Association Field
+> (TCAF) which requires an extended network architecture and training method
+> beyond previous Composite Fields. Our experiments show competitive accuracy
+> while being an order of magnitude faster on multiple publicly available datasets
+> such as COCO, CrowdPose and the PoseTrack 2017 and 2018 datasets. We also show
+> that our method generalizes to any class of semantic keypoints such as car and
+> animal parts to provide a holistic perception framework that is well suited for
+> urban mobility such as self-driving cars and delivery robots.
 
-# Methodology
+Previous [CVPR 2019 paper](http://openaccess.thecvf.com/content_CVPR_2019/html/Kreiss_PifPaf_Composite_Fields_for_Human_Pose_Estimation_CVPR_2019_paper.html).
 
-To make our model able to take the coordinates of the bounding boxes as they were keypoints, in order to build a "skeleton" corresponding to it, we had to create a new plugin for that dataset. 
-
-We created the *openpifpaf_coco_det* plugin that is very similar to the coco plugin. The biggest changes are in the *constants.py* file, where we defined how the keypoints of the bounding boxes are related to each other (to build the skeleton), their names, how they are located in the space and their precision of localization. In this way, our model will not detect the upper left corner of a box, but it will detect the upper left corner of a **human box**. 
-
-Then, we had to change the input of the model during training: instead of taking the keypoints, it should take the coordinates of the angles of the bounding box. In a JSON file, the bbox is given as [x,y, width, height, visibility], whereas the keypoints are given as [..., x_i, y_i, visibility_i, ... ]. Therefore, we had to transform the bbox into the keypoints format. This was made at two places in the code:
-1. In the *encoder.annrescaler.py* file, used to extract and rescale the annotations given to the model
-2. In the *transforms.annotations.py* file, used to extract the data before transforming it (for example horizontal flip). 
-
-# What is not implemented yet
-
-For now, only the **person** category has been taken into account. The model predicts the keypoints of the bounding box and not the bounding boxes themselves.
-
-We can thus improve the following points in the future:
-
-- Multiple class detection: in a further improvement, we could add new classes to be detected (up to 80 classes if we use the COCO dataset) by changing the number of box keypoints taken into consideration. The network will then assign keypoints specific to each class. (example: *left_corner_human* if it is the left corner of a human box or *left_corner_cat* if it is the left corner of a cat box).
-- Box keypoints to bounding boxes transformation: we can either change the decoder to do it automaticaly, or compute bonding box from the box keypoints outputs. Indeed, for now the "bounding boxes" output by the model are several thick lines creating a rectangle with all vertices linked to the center. A bounding box should display only a rectangle around the object with the name of the class corresponding to that object.
-
-Furthermore, we trained the model with a *shufflenetv2k16* basenet. To improve the performance of our model, we could try other basenets, add a weight decay or fine tune the learning rate.
-These are more model tuning improvements that can be studied and applied.  
-
-Finally we could implement a validation function made for this application. For now we are using the openpifpaf "person" keypoint validation function, which is not adapted to bounding box prediction.
-
-# Conclusion 
-
-In conclusion we have a model that detects human bonding boxes. This model was trained by receiving the bounding box coordinates as keypoints during the training. The prediction of our model has a low accuracy for now, but we proved that it is possible to do detection from box keypoints using openpifpaf keypoints detection model. It could be interesting to dig more into the subject to see if it is possible to improve the accuracy of the model and open it to multiclass detection.
-As explained above the model could be improve either by model tuning (hyperparameters tuning) or by acting on the dataset loader (to add other classes). 
-
-# How to use it?
-
-To use our model to predict the detection on your images, you can follow the following steps.
-
-1. Download the project code from this git repository: 
-
-2. Run the following command from the main folder for the prediction: 
-
-To save the image and the json output:
-```sh
-  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-230528-181950-cocoboxkp.pkl.epoch002 --image-output <image_path> --json-output <json_path>
-```
-
-To vizualized the image directly (you need to install matplotlib) and select the weights you want to use: 
-```sh
-  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-230528-181950-cocoboxkp.pkl.epoch002 --show
-```
+Have fun with [our latest real-time interactive demo](https://vitademo.epfl.ch/movements/)!
 
 
-## [Guide](https://vita-epfl.github.io/openpifpaf/intro.html)
+# [Guide](https://vita-epfl.github.io/openpifpaf/intro.html)
 
-The detailed documentation concerning the OpenPifPaf model can be found in the __[OpenPifPaf Guide](https://vita-epfl.github.io/openpifpaf/intro.html)__.
+Detailed documentation is in our __[OpenPifPaf Guide](https://vita-epfl.github.io/openpifpaf/intro.html)__.
 For developers, there is also the
 __[DEV Guide](https://vita-epfl.github.io/openpifpaf/dev/intro.html)__
 which is the same guide but based on the latest code in the `main` branch.
 
-We based our work on this guide, please refer to it if the information provided below are not sufficient. Moreover, if you like to use the other plugins or datasets provided by openpifpaf, please use the corresponding code in the __[original GitHub repository](https://github.com/vita-epfl/openpifpaf)__.
 
-## Examples
+# Installation
 
-![Example image with predicted bbox](https://github.com/alechp13/openpifpaf_bbox/blob/main/images_readme/0018.jpg.predictions.jpeg)
+This version of OpenPifPaf (`openpifpaf-vita`) cannot co-exist with the original one ([`openpifpaf`](https://github.com/openpifpaf/openpifpaf)) in the same environment.
+If you have previously installed the package `openpifpaf`, remove it before installation to avoid conflicts.
+
+This project was forked from [OpenPifPaf v0.13.1](https://github.com/openpifpaf/openpifpaf/releases/tag/v0.13.1) and developed separately from version v0.14.0 on.
+
+Do not clone this repository.
+Make sure there is no folder named `openpifpaf-vita` in your current directory, and run:
+```sh
+pip3 install openpifpaf-vita
+```
+
+You need to install `matplotlib` to produce visual outputs:
+```sh
+pip3 install matplotlib
+```
+
+To modify OpenPifPaf itself, please follow [Modify Code](https://vita-epfl.github.io/openpifpaf/dev.html#modify-code).
+
+
+# Examples
+
+![example image with overlaid pose predictions](https://github.com/vita-epfl/openpifpaf/raw/main/docs/coco/000000081988.jpg.predictions.jpeg)
+
+Image credit: "[Learning to surf](https://www.flickr.com/photos/fotologic/6038911779/in/photostream/)" by fotologic which is licensed under [CC-BY-2.0].<br />
+Created with:
+```sh
+python3 -m openpifpaf.predict docs/coco/000000081988.jpg --image-output
+```
+
+---
+
+Here is the [tutorial for body, foot, face and hand keypoints](https://vita-epfl.github.io/openpifpaf/plugins_wholebody.html). Example:
+![example image with overlaid wholebody pose predictions](https://raw.githubusercontent.com/vita-epfl/openpifpaf/main/docs/soccer.jpeg.predictions.jpeg)
+
+Image credit: [Photo](https://de.wikipedia.org/wiki/Kamil_Vacek#/media/Datei:Kamil_Vacek_20200627.jpg) by [Lokomotive74](https://commons.wikimedia.org/wiki/User:Lokomotive74) which is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/).<br />
+Created with:
+```sh
+python -m openpifpaf.predict guide/wholebody/soccer.jpeg \
+  --checkpoint=shufflenetv2k30-wholebody --line-width=2 --image-output
+```
+
+---
+
+Here is the [tutorial for car keypoints](https://vita-epfl.github.io/openpifpaf/plugins_apollocar3d.html). Example:
+![example image cars](https://raw.githubusercontent.com/vita-epfl/openpifpaf/main/docs/peterbourg.jpg.predictions.jpeg)
+
+Image credit: [Photo](https://commons.wikimedia.org/wiki/File:Streets_of_Saint_Petersburg,_Russia.jpg) by [Ninaras](https://commons.wikimedia.org/wiki/User:Ninaras) which is licensed under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
 Created with:
 ```sh
-python3 -m openpifpaf.predict docs/coco/0018.jpg --image-output
+python -m openpifpaf.predict guide/images/peterbourg.jpg \
+  --checkpoint shufflenetv2k16-apollo-24 -o images \
+  --instance-threshold 0.05 --seed-threshold 0.05 \
+  --line-width 4 --font-size 0
+```
+
+---
+
+Here is the [tutorial for animal keypoints (dogs, cats, sheep, horses and cows)](https://vita-epfl.github.io/openpifpaf/plugins_animalpose.html). Example:
+![example image cars](https://raw.githubusercontent.com/vita-epfl/openpifpaf/main/docs/tappo_loomo.jpg.predictions.jpeg)
+
+
+```sh
+python -m openpifpaf.predict guide/images tappo_loomo.jpg \
+  --checkpoint=shufflenetv2k30-animalpose \
+  --line-width=6 --font-size=6 --white-overlay=0.3 \
+  --long-edge=500
 ```
 
 
