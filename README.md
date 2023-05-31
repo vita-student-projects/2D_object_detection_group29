@@ -46,12 +46,12 @@ To use our model to predict the detection on your images, you can follow the fol
 
 To save the image and the json output:
 ```sh
-  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-230528-181950-cocoboxkp.pkl.epoch002 --image-output <image_path> --json-output <json_path>
+  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-cocoboxkp.epoch120 --image-output <image_path> --json-output <json_path>
 ```
 
 To vizualized the image directly (you need to install matplotlib) and select the weights you want to use: 
 ```sh
-  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-230528-181950-cocoboxkp.pkl.epoch002 --show
+  python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-cocoboxkp.epoch120 --show
 ```
 
 
@@ -70,7 +70,7 @@ We based our work on this guide, please refer to it if the information provided 
 
 Created with:
 ```sh
-python3 -m openpifpaf.predict docs/coco/0018.jpg --image-output
+python3 -m openpifpaf.predict docs/coco/0018.jpg --image-output --checkpoint outputs/shufflenetv2k16-cocoboxkp.epoch120
 ```
 
 
