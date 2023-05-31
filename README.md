@@ -40,16 +40,16 @@ As explained above the model could be improve either by model tuning (hyperparam
 
 To use our model to predict the detection on your images, you can follow the following steps.
 
-1. Download the project code from this git repository: 
-
-2. Run the following command from the main folder for the prediction: 
+1. Download the project code from this __[git repository](https://github.com/vita-student-projects/2D_object_detection_group29/tree/main)__
+2. Download the model weights from this __[link](https://drive.google.com/drive/folders/1rtzotrZ9aL3Mz5FqdRWfgfM6H2oJII2V?usp=sharing)__
+3. Run the following command from the main folder for the prediction: 
 
 To save the image and the json output:
 ```sh
   python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-cocoboxkp.epoch120 --image-output <image_path> --json-output <json_path>
 ```
 
-To vizualized the image directly (you need to install matplotlib) and select the weights you want to use: 
+To visualize the image directly (you need to install matplotlib) and select the weights you want to use: 
 ```sh
   python3 -m openpifpaf.predict <image_path> --checkpoint outputs/shufflenetv2k16-cocoboxkp.epoch120 --show
 ```
