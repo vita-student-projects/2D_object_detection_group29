@@ -29,7 +29,7 @@ class NormalizeAnnotations(Preprocess):
 
             box = np.asarray(ann['bbox'], dtype=np.float32)
             b0, b1, w, h = box[0], box[1], box[2], box[3]
-            ann['keypoints'] = (np.array([[(b0 + w)/2.0, (b1+h)/2.0, 2.],[b0, b1, 2.], [b0+w, b1, 2.], [b0, b1+h, 2.], [b0+w, b1+h, 2.]]))
+            ann['keypoints'] = (np.array([[b0 + w/2.0, b1+h/2.0, 2.],[b0, b1, 2.], [b0+w, b1, 2.], [b0, b1+h, 2.], [b0+w, b1+h, 2.]]))
 
             if 'bbox' not in ann:
                 ann['bbox'] = cls.bbox_from_keypoints(ann['keypoints'])
