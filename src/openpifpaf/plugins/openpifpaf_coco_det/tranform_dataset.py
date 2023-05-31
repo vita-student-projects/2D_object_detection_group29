@@ -158,7 +158,7 @@ class Json_Updating:
                     new_box_anns = []
                     box = box_anns[0]
                     b0, b1, w, h = box[0], box[1], box[2], box[3]
-                    box_vals = [round((b0 + w)/2.0, 2), round((b1+h)/2.0, 2), 2., round(b0,2), round(b1,2), 2., round(b0+w,2), round(b1,2), 2., round(b0,2), round(b1+h,2), 2., round(b0+w,2), round(b1+h,2), 2.]
+                    box_vals = [round(b0 + (w/2.0), 2), round(b1+(h/2.0), 2), 2., round(b0,2), round(b1,2), 2., round(b0+w,2), round(b1,2), 2., round(b0,2), round(b1+h,2), 2., round(b0+w,2), round(b1+h,2), 2.]
                     for i in range(len(box_vals)): new_box_anns.append(box_vals[i])
                 else : 
                     new_box_anns = [0 for i in range(15)] # Put new boxes to 0 if there is no bounding boxes
